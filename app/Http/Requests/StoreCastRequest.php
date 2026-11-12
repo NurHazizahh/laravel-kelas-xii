@@ -11,7 +11,7 @@ class StoreCastRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class StoreCastRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:45'],
+            'age' => ['required', 'integer', 'min:1', 'max:120'],
+            'bio' => ['required', 'string'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama cast wajib diisi.',
+            'name.max' => 'Nama cast maksimal 45 karakter.',
+            'age.required' => 'Umur wajib diisi.',
+            'age.integer' => 'Umur harus berupa angka.',
+            'age.min' => 'Umur minimal 1 tahun.',
+            'age.max' => 'Umur maksimal 120 tahun.',
+            'bio.required' => 'Bio wajib diisi.',
         ];
     }
 }

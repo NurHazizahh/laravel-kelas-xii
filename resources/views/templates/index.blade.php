@@ -31,6 +31,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   </nav>
 </div>
 <!-- /w3l-medile-movies-grids -->
+@if(session('success'))
+<div class="container" style="margin-top: 15px;">
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ session('success') }}
+  </div>
+</div>
+@endif
+@if(session('error'))
+<div class="container" style="margin-top: 15px;">
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ session('error') }}
+  </div>
+</div>
+@endif
 @yield('content')
 	<!-- //comedy-w3l-agileits -->
 <!-- footer -->

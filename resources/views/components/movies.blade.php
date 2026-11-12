@@ -30,8 +30,13 @@
             <div class="container">
               <div class="browse-inner">
               @for ($data = 0; $data < $films->count(); $data++)
+              @php
+                $moviesPoster = $films[$data]->poster 
+                  ? asset(str_starts_with($films[$data]->poster, 'storage/') ? $films[$data]->poster : 'storage/' . $films[$data]->poster)
+                  : asset('template/images/m1.jpg');
+              @endphp
               <div class="col-md-2 w3l-movie-gride-agile">
-                <a href="{{ route('movies.show', $films[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ asset($films[$data]->poster) }}" title="album-name" alt=" " />
+                <a href="{{ route('movies.show', $films[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ $moviesPoster }}" title="{{ $films[$data]->title }}" alt="{{ $films[$data]->title }}" onerror="this.src='{{ asset('template/images/m1.jpg') }}'" />
                   <div class="w3l-action-icon">
                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                   </div>

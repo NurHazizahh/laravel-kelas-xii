@@ -1,0 +1,2 @@
+@include('admin.kritiks.index')
+

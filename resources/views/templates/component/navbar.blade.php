@@ -18,19 +18,19 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
               <ul class="dropdown-menu multi-column columns-3">
                 <li>
-                  <div class="col-sm-4">
-                    <ul class="multi-column-dropdown">
-                      @for ($genre = 1; $genre <= $genres->count() - 1; $genre++)
-                        <li><a href="{{ route('genre', $genres[$genre]->id) }}">{{ $genres[$genre]->name }}</a></li>
-                        @if($genre % 7 == 0)
-                          </ul>
-                        </div>
-                        <div class="col-sm-4">
-                          <ul class="multi-column-dropdown">
-                        @endif
-                      @endfor
-                    </ul>
-                  </div>
+                  @foreach ($genres->split(3) as $chunk)
+                    <div class="col-sm-4">
+                      <ul class="multi-column-dropdown">
+                        @foreach ($chunk as $g)
+                          <li style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <a href="{{ route('genre', $g->id) }}" title="{{ $g->name }}" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;">
+                              {{ Str::limit($g->name, 18) }}
+                            </a>
+                          </li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endforeach
                   <div class="clearfix"></div>
                 </li>
               </ul>

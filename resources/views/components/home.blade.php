@@ -11,7 +11,12 @@
 <div id="slidey" style="display:none;">
   <ul>
     @foreach ($filmSlidey as $film)
-      <li><img src="{{ $film->poster }}" alt="{{ $film->title }}">
+      @php
+        $slideyPoster = $film->poster 
+          ? asset(str_starts_with($film->poster, 'storage/') ? $film->poster : 'storage/' . $film->poster)
+          : asset('template/images/m1.jpg');
+      @endphp
+      <li><img src="{{ $slideyPoster }}" alt="{{ $film->title }}" onerror="this.src='{{ asset('template/images/m1.jpg') }}'">
         <p class='title'>{{ $film->title }}</p>
         <p class='description'>{{ $film->sinopsis }}</p>
       </li>
@@ -36,9 +41,14 @@
     <div class="w3_agile_banner_bottom_grid">
       <div id="owl-demo" class="owl-carousel owl-theme">
         @for ($data = 0; $data < $films->count(); $data++)
+          @php
+            $bottomPoster = $films[$data]->poster 
+              ? asset(str_starts_with($films[$data]->poster, 'storage/') ? $films[$data]->poster : 'storage/' . $films[$data]->poster)
+              : asset('template/images/m1.jpg');
+          @endphp
           <div class="item">
             <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-              <a href="{{ route('movies.show', $films[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ asset($films[$data]->poster) }}" title="album-name" alt=" " />
+              <a href="{{ route('movies.show', $films[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ $bottomPoster }}" title="{{ $films[$data]->title }}" alt="{{ $films[$data]->title }}" onerror="this.src='{{ asset('template/images/m1.jpg') }}'" />
                 <div class="w3l-action-icon">
                   <i class="fa fa-play-circle" aria-hidden="true"></i>
                 </div>
@@ -99,8 +109,13 @@
         <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
           <div class="w3_agile_featured_movies">
             @for ($data = 0; $data < $filmFutured->count(); $data++)
+              @php
+                $futuredPoster = $filmFutured[$data]->poster 
+                  ? asset(str_starts_with($filmFutured[$data]->poster, 'storage/') ? $filmFutured[$data]->poster : 'storage/' . $filmFutured[$data]->poster)
+                  : asset('template/images/m1.jpg');
+              @endphp
               <div class="col-md-2 w3l-movie-gride-agile">
-                <a href="{{ route('movies.show', $filmFutured[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ asset($filmFutured[$data]->poster) }}" title="album-name" alt=" " />
+                <a href="{{ route('movies.show', $filmFutured[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ $futuredPoster }}" title="{{ $filmFutured[$data]->title }}" alt="{{ $filmFutured[$data]->title }}" onerror="this.src='{{ asset('template/images/m1.jpg') }}'" />
                   <div class="w3l-action-icon">
                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                   </div>
@@ -138,8 +153,13 @@
         <div role="tabpanel" class="tab-pane fade" id="imdb" aria-labelledby="imdb-tab">
           <div class="w3_agile_featured_movies">
             @for ($data = 0; $data < $filmRecentAdded->count(); $data++)
+              @php
+                $recentPoster = $filmRecentAdded[$data]->poster 
+                  ? asset(str_starts_with($filmRecentAdded[$data]->poster, 'storage/') ? $filmRecentAdded[$data]->poster : 'storage/' . $filmRecentAdded[$data]->poster)
+                  : asset('template/images/m1.jpg');
+              @endphp
               <div class="col-md-2 w3l-movie-gride-agile">
-                <a href="{{ route('movies.show', $filmRecentAdded[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ asset($filmRecentAdded[$data]->poster) }}" title="album-name" alt=" " />
+                <a href="{{ route('movies.show', $filmRecentAdded[$data]->id) }}" class="hvr-shutter-out-horizontal"><img src="{{ $recentPoster }}" title="{{ $filmRecentAdded[$data]->title }}" alt="{{ $filmRecentAdded[$data]->title }}" onerror="this.src='{{ asset('template/images/m1.jpg') }}'" />
                   <div class="w3l-action-icon">
                     <i class="fa fa-play-circle" aria-hidden="true"></i>
                   </div>

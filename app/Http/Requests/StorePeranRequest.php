@@ -11,7 +11,7 @@ class StorePeranRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,21 @@ class StorePeranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'film_id' => ['required', 'exists:films,id'],
+            'cast_id' => ['required', 'exists:casts,id'],
+            'actor' => ['required', 'string', 'max:255'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'film_id.required' => 'Film wajib dipilih.',
+            'film_id.exists' => 'Film yang dipilih tidak valid.',
+            'cast_id.required' => 'Cast wajib dipilih.',
+            'cast_id.exists' => 'Cast yang dipilih tidak valid.',
+            'actor.required' => 'Nama peran / karakter wajib diisi.',
+            'actor.max' => 'Nama peran maksimal 255 karakter.',
         ];
     }
 }
